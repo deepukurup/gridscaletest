@@ -8,13 +8,15 @@ WORKDIR /app
 COPY . /app
 
 # Install any needed dependencies
-RUN pip install --no-cache-dir Flask gunicorn
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt --no-cache-dir Flask gunicorn
+#RUN pip install --no-cache-dir Flask gunicorn
 
 # Make port 5000 available to the world outside this container
 EXPOSE 5000
 
 # Define environment variable
-ENV FLASK_APP websrv.py
+ENV FLASK_APP websrv1.py
 
 # Run websrv.py when the container launches
 CMD ["gunicorn", "-b", "0.0.0.0:5000", "websrv:app"]
